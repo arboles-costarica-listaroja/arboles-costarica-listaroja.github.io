@@ -1,0 +1,364 @@
+---
+title: "Preparación de registros de presencia"
+format: 
+  html:
+    lang: es
+    theme: cosmo
+    toc: true
+    toc-expand: 3
+---
+
+
+# Introducción
+Este documento computacional prepara los registros de presencia para uso en una aplicación Shiny. 
+
+
+# Procesamiento
+
+## Carga de paquetes
+
+```{r}
+#| label: carga-paquetes
+#| message: false
+#| warning: false
+#| code-fold: show
+#| code-summary: "Código"
+
+# Paquetes
+library(here)
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(DT)
+library(ggplot2)
+library(plotly)
+library(sf)
+library(leaflet)
+library(leaflet.extras)
+library(leafem)
+```
+
+
+## Rutas a archivos
+
+```{r}
+#| label: parametros-generales
+#| code-fold: show
+#| code-summary: "Código"
+
+
+# ASP
+ARCHIVO_GPKG_ASP <- here("datos", "finales", "asp.gpkg")
+
+# Costa Rica
+ARCHIVO_GPKG_COSTARICA <- here("datos", "finales", "costarica.gpkg")
+
+# Registros de presencia
+ARCHIVO_ZIP_REGISTROS_PRESENCIA <- here("datos", "originales", "points_data.zip")
+ARCHIVO_CSV_REGISTROS_PRESENCIA <- "points_data.csv"
+ARCHIVO_GPKG_REGISTROS_PRESENCIA <- here("datos", "finales", "registros-presencia.gpkg")
+
+# Especies
+ARCHIVO_XLSX_ESPECIES <- here("datos", "originales", "Costa Rica Analysis 2024.xlsx")
+```
+
+
+## Carga de datos
+
+```{r}
+#| label: carga-datos
+#| code-fold: show
+#| code-summary: "Código"
+
+
+# ASP
+asp_sf <- st_read(ARCHIVO_GPKG_ASP, quiet = TRUE)
+
+
+# Costa Rica
+costarica_sf <- st_read(ARCHIVO_GPKG_COSTARICA, quiet = TRUE)
+
+
+# Registros de presencia
+# Descompresión del archivo ZIP con registros de presencia
+unzip(ARCHIVO_ZIP_REGISTROS_PRESENCIA, exdir = tempdir())
+
+# Ruta del archivo descomprimido
+archivo_csv_registros_presencia <- file.path(tempdir(), ARCHIVO_CSV_REGISTROS_PRESENCIA)
+
+# Carga de registros de presencia
+registros_presencia_sf <- 
+  st_read(
+    dsn = archivo_csv_registros_presencia,
+    options = c(
+      "X_POSSIBLE_NAMES=longitude",
+      "Y_POSSIBLE_NAMES=latitude"
+    )  ,
+    quiet = TRUE
+  ) |>
+  select(id_no, species = sci_name)
+  
+
+# Asignación del CRS WGS84 a los registros de presencia
+st_crs(registros_presencia_sf) <- 4326
+
+
+# Especies
+especies <- 
+  suppressMessages(read_xlsx(ARCHIVO_XLSX_ESPECIES)) |>
+  select(species = Check_TaxonName, category_iucn_redlist = `IUCN_Red_List`) |>
+  filter(category_iucn_redlist %in%
+    c("Critically Endangered", "Endangered", "Vulnerable", "Near Threatened")
+  )
+```
+
+
+## Preparación de registros de presencia
+
+```{r}
+#| label: preparacion-registros-presencia
+#| warning: false
+#| message: false
+#| code-fold: show
+#| code-summary: "Código"
+
+
+# Filtro espacial de registros de presencia ubicados dentro de Costa Rica
+registros_presencia_sf <- st_filter(
+  x = registros_presencia_sf, 
+  y = costarica_sf, 
+  .predicate = st_within
+)
+
+# Unión de registros de presencia y especies
+# para agregar la columna category_iucn_redlist
+registros_presencia_sf <- inner_join(
+  x = registros_presencia_sf,
+  y = select(especies, species, category_iucn_redlist),
+  by = "species"
+)
+
+# Escritura
+registros_presencia_sf |>
+  st_write(ARCHIVO_GPKG_REGISTROS_PRESENCIA, delete_dsn = TRUE, quiet = TRUE)
+```
+
+# Visualización
+
+## Lista de especies
+
+```{r}
+#| label: tabla-lista-especies
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Código"
+
+
+registros_presencia_sf |>
+  st_drop_geometry() |>
+  group_by(species, category_iucn_redlist) |>
+  summarize(n = n()) |>
+  arrange(species) |>
+  datatable(
+    colnames = c("Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+    rownames = FALSE,
+    options = list(
+      pageLength = 10,
+      language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+    )
+  )
+```
+
+
+## Cantidad de especies por categoría en la Lista Roja
+
+```{r}
+#| label: grafico-cantidad-especies-por-categoria
+#| code-fold: true
+#| code-summary: "Código"
+
+
+# Orden de categorías para mostrar en el gráfico
+order_category_iucn_redlist <- c(
+  "Critically Endangered", 
+  "Endangered", 
+  "Vulnerable", 
+  "Near Threatened"
+)
+
+# Gráfico ggplot2
+grafico_ggplot2 <-
+  registros_presencia_sf |>
+  distinct(species, category_iucn_redlist) |>
+  group_by(category_iucn_redlist) |>
+  summarize(n = n()) |>
+  mutate(category_iucn_redlist = factor(
+    category_iucn_redlist, 
+    levels = order_category_iucn_redlist)
+  ) |>
+  ggplot(aes(
+    x = category_iucn_redlist, 
+    y = n,
+    text = paste(
+      paste0("Categoría en la Lista Roja: ", category_iucn_redlist),
+      paste0("Cantidad de especies: ", n),
+      sep = "<br>"
+    )
+  )) +
+  geom_col() +
+  xlab("Categoría en la Lista Roja") +
+  ylab("Cantidad de especies") +
+  theme_minimal()
+
+# Gráfico plotly
+grafico_ggplot2 |>
+  ggplotly(tooltip = "text") |> config(locale = "es")
+```
+
+
+## Cantidad de especies por ASP
+
+### Tabla
+
+```{r}
+#| label: tabla-cantidad-especies-por-asp
+#| code-fold: true
+#| code-summary: "Código"
+
+
+# Unión espacial de registros de presencia y ASP
+registros_union_asp <- st_join(
+  x = registros_presencia_sf,
+  y = select(asp_sf, codigo),
+  join = st_within
+)
+
+# Conteo de especies por ASP
+riqueza_especies_asp <-
+  registros_union_asp |>
+  st_drop_geometry() |>
+  group_by(codigo) |>
+  summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+
+# Unión no espacial de ASP y riqueza de especies
+asp_union_riqueza <-
+  left_join(
+    x = asp_sf,
+    y = dplyr::select(riqueza_especies_asp, codigo, riqueza_especies),
+    by = "codigo"
+  ) |>
+  replace_na(list(riqueza_especies = 0))
+
+
+# Tabla
+asp_union_riqueza |>
+  st_drop_geometry() |>
+  distinct(codigo, nombre_asp, cat_manejo, riqueza_especies) |>
+  arrange(codigo) |>
+  datatable(
+    colnames = c("Código del ASP", "Nombre", "Categoría de manejo", "Cantidad de especies"),
+    rownames = FALSE,
+    options = list(
+      pageLength = 10,
+      language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+    )
+  )
+```
+
+
+### Gráfico
+
+```{r}
+#| label: grafico-cantidad-especies-por-asp
+#| code-fold: true
+#| code-summary: "Código"
+
+
+# Gráfico
+grafico_ggplot2 <-
+  asp_union_riqueza |>
+  distinct(codigo, nombre_asp, riqueza_especies) |>
+  arrange(desc(riqueza_especies)) |>
+  slice((1:25)) |>
+  ggplot(aes(
+    x = reorder(nombre_asp, -riqueza_especies),
+    y = riqueza_especies,
+    text = paste(
+      paste0("ASP: ", nombre_asp),
+      paste0("Cantidad de especies: ", riqueza_especies),
+      sep = "<br>"
+    )    
+  )) +
+  geom_col() +
+  xlab("Área silvestre protegida (ASP)") +
+  ylab("Cantidad de especies") +  
+  theme_minimal()
+
+# Gráfico plotly
+grafico_ggplot2 |>
+  ggplotly(tooltip = "text") |> 
+  layout(
+    xaxis = list(tickangle = 45)
+  ) |>
+  config(locale = "es")
+```
+
+
+### Mapa
+
+```{r}
+#| label: mapa
+#| code-fold: true
+#| code-summary: "Código"
+
+
+# Paleta de colores de riqueza de especies
+colores_riqueza_especies <- colorNumeric(
+  palette = "Reds",
+  domain = asp_union_riqueza$riqueza_especies,
+  na.color = "transparent"
+)
+
+# Mapa
+leaflet() |>
+  setView(
+    lng = -84.19451,
+    lat = 9.972725,
+    zoom = 7
+  ) |>
+  addTiles(group = "OpenStreetMap") |>
+  addPolygons(
+    data = asp_union_riqueza,
+    color = "darkgreen",
+    fillColor = ~ colores_riqueza_especies(asp_union_riqueza$riqueza_especies),
+    fillOpacity = 0.8,
+    weight = 2.0,
+    stroke = TRUE,
+    popup = paste(
+      paste0("<strong>ASP: </strong>", asp_union_riqueza$cat_manejo, " ", asp_union_riqueza$nombre_asp),
+      paste0("<strong>Cantidad de especies: </strong>", asp_union_riqueza$riqueza_especies),
+      sep = "<br>"
+    ),
+    group = "ASP"
+  ) |>
+  addLegend(
+    position = "bottomleft",
+    pal = colores_riqueza_especies,
+    values = asp_union_riqueza$riqueza_especies,
+    group = "ASP",
+    title = "Cantidad de especies"
+  ) |>  
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c("ASP")
+  ) |>
+  addScaleBar(
+    position = "bottomleft", 
+    options = scaleBarOptions(imperial = FALSE)
+  ) |>    
+  addResetMapButton() |>
+  addSearchOSM() |>
+  addMouseCoordinates() |>
+  addFullscreenControl()
+```

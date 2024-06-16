@@ -1,0 +1,164 @@
+---
+title: "Descarga de capas geoespaciales"
+format: 
+  html:
+    lang: es
+    theme: cosmo
+    toc: true
+    toc-expand: 3
+---
+
+
+# Introducción
+Este documento descarga las siguientes capas geoespaciales:
+
+- Áreas silvestres protegidas (ASP).
+- Contorno de Costa Rica (se forma a partir de la unión de los polígonos de cantones).
+
+
+# Procesamiento
+
+## Carga de paquetes
+
+```{r}
+#| label: carga-paquetes
+#| message: false
+#| warning: false
+#| code-fold: show
+#| code-summary: "Código"
+
+
+# Paquetes
+library(here)
+library(dplyr)
+library(sf)
+library(leaflet)
+library(leaflet.extras)
+library(leafem)
+```
+
+
+## Rutas a archivos y geoservicios
+
+```{r}
+#| label: parametros-generales
+#| code-fold: show
+#| code-summary: "Código"
+
+
+# ASP
+WFS_SINAC_BASE <- "http://geos1pne.sirefor.go.cr/wfs"
+WFS_SINAC_VERSION <- "1.0.0"
+WFS_SINAC_CAPA_ASP <- "PNE:areas_silvestres_protegidas"
+ARCHIVO_GPKG_ASP <- here("datos", "finales", "asp.gpkg")
+
+# Cantones
+WFS_IGN5000CO_BASE <- "https://geos.snitcr.go.cr/be/IGN_5_CO/wfs"
+WFS_IGN5000CO_VERSION <- "1.0.0"
+WFS_IGN5000CO_CAPA_CANTONES <- "IGN_5_CO:limitecantonal_5k"
+
+# Costa Rica
+ARCHIVO_GPKG_COSTARICA <- here("datos", "finales", "costarica.gpkg")
+```
+
+## Descarga de capas
+
+```{r}
+#| label: descarga-capas-wfs
+#| warning: false
+#| message: false
+#| code-fold: show
+#| code-summary: "Código"
+
+
+# ASP
+
+# Solicitud WFS
+solicitud_wfs <- sprintf(
+  "request=GetFeature&service=WFS&version=%s&typename=%s&outputFormat=application/json",
+  WFS_SINAC_VERSION,
+  URLencode(WFS_SINAC_CAPA_ASP)
+)
+
+# Carga, reproyección y validación de geometrías
+asp_sf <-
+  st_read(paste0(URLencode(WFS_SINAC_BASE), "?", solicitud_wfs), quiet = TRUE) |>
+  st_transform(4326) |>
+  st_make_valid()
+
+# Escritura
+asp_sf |>
+  st_write(ARCHIVO_GPKG_ASP, delete_dsn = TRUE, quiet = TRUE)
+
+
+# Costa Rica
+
+# Solicitud WFS
+solicitud_wfs <- sprintf(
+  "request=GetFeature&service=WFS&version=%s&typename=%s&outputFormat=application/json",
+  WFS_IGN5000CO_VERSION,
+  URLencode(WFS_IGN5000CO_CAPA_CANTONES)
+)
+
+# Carga, reproyección, validación de geometrías y unión
+costarica_sf <-
+  st_read(paste0(URLencode(WFS_IGN5000CO_BASE), "?", solicitud_wfs), quiet = TRUE) |>
+  st_transform(4326) |>
+  st_make_valid() |> 
+  st_union()
+
+# Escritura
+costarica_sf |>
+  st_write(ARCHIVO_GPKG_COSTARICA, delete_dsn = TRUE, quiet = TRUE)
+```
+
+
+# Visualización
+
+## Mapa
+
+```{r}
+#| label: mapa
+#| code-fold: true
+#| code-summary: "Código"
+
+
+leaflet() |>
+  setView(
+    lng = -84.19451,
+    lat = 9.972725,
+    zoom = 7
+  ) |>
+  addTiles(group = "OpenStreetMap") |>
+  addPolygons(
+    data = st_as_sf(costarica_sf),
+    color = "black",
+    fillColor = "transparent",
+    weight = 2.5,
+    stroke = TRUE,
+    popup = "Costa Rica",
+    group = "Costa Rica"
+  ) |>
+  addPolygons(
+    data = asp_sf,
+    color = "darkgreen",
+    fillColor = "transparent",
+    weight = 2.0,
+    stroke = TRUE,
+    popup = paste0(
+      asp_sf$cat_manejo,
+      " ",
+      asp_sf$nombre_asp
+    ),
+    group = "ASP"
+  ) |>
+  addLayersControl(
+    baseGroups = c("OpenStreetMap"),
+    overlayGroups = c("Costa Rica", "ASP")
+  ) |>
+  addResetMapButton() |>
+  addSearchOSM() |>
+  addMouseCoordinates() |>
+  addFullscreenControl()
+```
+

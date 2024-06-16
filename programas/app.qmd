@@ -1,0 +1,319 @@
+---
+title: "Árboles de Costa Rica en la Lista Roja de la UICN"
+format: 
+  html:
+    page-layout: custom
+    theme: litera    
+    margin-top: 40px
+    margin-left: 40px
+    margin-bottom: 15px        
+    margin-right: 15px
+server: shiny
+---
+
+
+```{r}
+#| label: carga-paquetes
+#| context: setup
+#| warning: false
+#| message: false
+
+
+# Carga de paquetes
+library(here)
+library(dplyr)
+library(tidyr)
+library(DT)
+library(ggplot2)
+library(plotly)
+library(sf)
+library(leaflet)
+library(leaflet.extras)
+library(leafem)
+```
+
+```{r}
+#| label: carga-datos
+#| context: data
+#| eval: true
+
+
+# Archivos de entrada
+
+# ASP
+ARCHIVO_GPKG_ASP <- here("datos", "finales", "asp.gpkg")
+
+# Registros de presencia
+ARCHIVO_GPKG_REGISTROS_PRESENCIA <- here("datos", "finales", "registros-presencia.gpkg")
+
+
+# Carga de datos
+
+# ASP
+asp_sf <- st_read(ARCHIVO_GPKG_ASP, quiet = TRUE)
+
+# Registros de presencia
+registros_presencia_sf <- 
+  st_read(
+    dsn = ARCHIVO_GPKG_REGISTROS_PRESENCIA,
+    quiet = TRUE
+  )
+# Asignación del CRS WGS84 a los registros de presencia
+st_crs(registros_presencia_sf) <- 4326
+
+
+# Registros de presencia unidos con ASP
+# Se agrega la columna nombre_asp a registros_presencia_sf
+registros_union_asp <-
+  st_join(
+    x = registros_presencia_sf,
+    y = select(asp_sf, codigo, nombre_asp)
+  )
+```
+
+```{r}
+#| label: panel-widgets-entrada
+#| message: false
+#| warning: false
+#| panel: sidebar
+
+
+# Lista de categorías para usar en el widget
+lista_categorias <- unique(registros_union_asp$category_iucn_redlist)
+lista_categorias <- sort(lista_categorias)
+lista_categorias <- c("Todas", lista_categorias)
+
+# Widget de lista de selección de categorías
+selectInput(
+  inputId = "categoria",
+  label = "Categoría en la Lista Roja",
+  choices = lista_categorias,
+  selected = "Todas"
+)
+```
+
+```{r}
+#| label: panel-widgets-salida
+#| panel: center
+
+
+h3("Cantidad de especies en ASP")
+HTML("<p>")
+leafletOutput(
+ outputId =  "mapa" # identificador del widget
+)
+plotlyOutput(
+	outputId =  "grafico"
+)
+
+h3("Lista de especies en ASP")
+HTML("<p>")
+dataTableOutput(
+	outputId =  "tabla"
+)
+```
+
+```{r}
+#| label: servidor
+#| context: server
+
+
+# Función reactiva para filtrar los registros de presencia unidos con ASP
+# de acuerdo con los filtros especificados por el usuario
+filtrar_registros_union_asp <- reactive({
+  # Valor inicial del objeto que va a retornarse
+  registros_union_asp_filtrados <- registros_union_asp
+
+  if (input$categoria != "Todas") {
+    registros_union_asp_filtrados <-
+      registros_union_asp_filtrados |>
+      filter(category_iucn_redlist == input$categoria)
+  }
+  
+  return(registros_union_asp_filtrados)
+})
+
+
+# Mapa
+output$mapa <- renderLeaflet({
+  # Filtrado del conjunto de datos
+  registros_union_asp_filtrados <- filtrar_registros_union_asp()
+
+  # Conteo de especies por ASP
+  riqueza_especies_asp <-
+    registros_union_asp_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de ASP y riqueza de especies
+  asp_union_riqueza <-
+    left_join(
+      x = asp_sf,
+      y = dplyr::select(riqueza_especies_asp, codigo, riqueza_especies),
+      by = "codigo"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+  
+  
+  # Paleta de colores de riqueza de especies
+  colores_riqueza_especies <- colorNumeric(
+    palette = "Reds",
+    domain = asp_union_riqueza$riqueza_especies,
+    na.color = "transparent"
+  )
+  
+  # Mapa de cantidad de especies en ASP
+  leaflet() |>
+    setView(
+      lng = -84.19451,
+      lat = 9.972725,
+      zoom = 7
+    ) |>
+    addTiles(group = "OpenStreetMap") |>
+    addProviderTiles(provider = providers$Esri.WorldImagery, group = "ESRI World Imagery") |>
+    addProviderTiles(provider = providers$CartoDB.Positron, group = "Carto Positron") |>
+    addPolygons(
+      data = asp_union_riqueza,
+      color = "darkgreen",
+      fillColor = ~ colores_riqueza_especies(asp_union_riqueza$riqueza_especies),
+      fillOpacity = 0.8,
+      weight = 2.0,
+      stroke = TRUE,
+      popup = paste(
+        paste0("<strong>ASP: </strong>", asp_union_riqueza$cat_manejo, " ", asp_union_riqueza$nombre_asp),
+        paste0("<strong>Cantidad de especies: </strong>", asp_union_riqueza$riqueza_especies),
+        sep = "<br>"
+      ),
+      group = "ASP"
+    ) |>
+    addLegend(
+      position = "bottomleft",
+      pal = colores_riqueza_especies,
+      values = asp_union_riqueza$riqueza_especies,
+      group = "ASP",
+      title = "Cantidad de especies"
+    ) |>  
+    addCircleMarkers(
+      data = registros_union_asp_filtrados,
+      radius = 2,
+      color = "red",
+      clusterOptions = markerClusterOptions(),
+      popup = paste(
+        paste0("<strong>Especie: </strong>", registros_union_asp_filtrados$species),
+        paste0("<strong>Categoría en la Lista Roja: </strong>", registros_union_asp_filtrados$category_iucn_redlist),
+        paste0("<strong>ASP: </strong>", registros_union_asp_filtrados$nombre_asp),
+        sep = "<br>"
+      ),
+      group = "Registros de presencia"
+    ) |>
+    addLayersControl(
+      baseGroups = c("OpenStreetMap", "ESRI World Imagery", "Carto Positron"),
+      overlayGroups = c("ASP", "Registros de presencia")
+    ) |>
+    addScaleBar(
+      position = "bottomright", 
+      options = scaleBarOptions(imperial = FALSE)
+    ) |>    
+    addResetMapButton() |>
+    addSearchOSM() |>
+    addMouseCoordinates() |>
+    addFullscreenControl()
+  })
+
+
+# Gráfico de cantidad de especies en ASP
+output$grafico <- renderPlotly({
+  # Filtrado del conjunto de datos
+  registros_union_asp_filtrados <- filtrar_registros_union_asp()
+  
+  
+  # Conteo de especies por ASP
+  riqueza_especies_asp <-
+    registros_union_asp_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de ASP y riqueza de especies
+  asp_union_riqueza <-
+    left_join(
+      x = asp_sf,
+      y = dplyr::select(riqueza_especies_asp, codigo, riqueza_especies),
+      by = "codigo"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+
+  # Gráfico
+  grafico_ggplot2 <-
+    asp_union_riqueza |>
+    distinct(codigo, nombre_asp, riqueza_especies) |>
+    arrange(desc(riqueza_especies)) |>
+    slice((1:25)) |>
+    ggplot(aes(
+      x = reorder(nombre_asp, -riqueza_especies),
+      y = riqueza_especies,
+      text = paste(
+        paste0("ASP: ", nombre_asp),
+        paste0("Cantidad de especies: ", riqueza_especies),
+        sep = "<br>"
+      )    
+    )) +
+    geom_col() +
+    xlab("Área silvestre protegida (ASP)") +
+    ylab("Cantidad de especies") +  
+    theme_minimal()
+  
+  # Gráfico plotly
+  grafico_ggplot2 |>
+    ggplotly(tooltip = "text") |> 
+    layout(
+      xaxis = list(tickangle = 45)
+    ) |>
+    config(locale = "es")
+})
+
+
+# Tabla de lista de especies en ASP
+output$tabla <- renderDataTable({
+  # Filtrado del conjunto de datos
+  registros_union_asp_filtrados <- filtrar_registros_union_asp()
+  
+  # Tabla interactiva
+  registros_union_asp_filtrados |>
+    st_drop_geometry() |>
+    group_by(nombre_asp, species, category_iucn_redlist) |>
+    summarize(n = n()) |>
+    arrange(nombre_asp, species) |>
+    datatable(
+      colnames = c("ASP", "Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+      rownames = FALSE,
+      options = list(
+        pageLength = 10,
+        language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+      )
+    )
+})
+
+
+# Tabla de lista de especies en la categoría
+# output$tabla <- renderDataTable({
+#   # Filtrado del conjunto de datos
+#   registros_union_asp_filtrados <- filtrar_registros_union_asp()
+#   
+#   # Tabla interactiva
+#   registros_union_asp_filtrados |>
+#     st_drop_geometry() |>
+#     group_by(species, category_iucn_redlist) |>
+#     summarize(n = n()) |>
+#     arrange(species) |>
+#     datatable(
+#       colnames = c("Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+#       rownames = FALSE,
+#       options = list(
+#         pageLength = 10,
+#         language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+#       )
+#     )
+# })
+```
