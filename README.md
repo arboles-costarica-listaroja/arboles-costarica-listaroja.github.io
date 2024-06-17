@@ -41,3 +41,21 @@ docker rm arboles-costarica-listaroja-r-433
 # Clave para ingresar a RStudio
 PASSWORD=arboles
 ```
+
+### Comando para instalar paquetes de R
+
+```r
+# Instalación de paquetes
+install.packages(c(
+  "here",
+  "tidyverse",
+  "plotly",
+  "DT",
+  "sf",
+  "leaflet",
+  "leaflet.extras",
+  "leafem",
+  "shiny",
+  "rsconnect"
+))
+```
