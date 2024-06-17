@@ -41,10 +41,12 @@ library(leafem)
 # Archivos de entrada
 
 # ASP
-ARCHIVO_GPKG_ASP <- here("datos", "finales", "asp.gpkg")
+# ARCHIVO_GPKG_ASP <- here("datos", "finales", "asp.gpkg")
+ARCHIVO_GPKG_ASP <- "asp.gpkg"
 
 # Registros de presencia
-ARCHIVO_GPKG_REGISTROS_PRESENCIA <- here("datos", "finales", "registros-presencia.gpkg")
+# ARCHIVO_GPKG_REGISTROS_PRESENCIA <- here("datos", "finales", "registros-presencia.gpkg")
+ARCHIVO_GPKG_REGISTROS_PRESENCIA <- "registros-presencia.gpkg"
 
 
 # Carga de datos
