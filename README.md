@@ -42,7 +42,7 @@ docker rm arboles-costarica-listaroja-r-433
 PASSWORD=arboles
 ```
 
-### Comando para instalar paquetes de R
+## Comando para instalar paquetes de R
 
 ```r
 # Instalación de paquetes
