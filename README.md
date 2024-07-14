@@ -5,7 +5,7 @@
 ### Generación de la imagen a partir del archivo Dockerfile
 ```shell
 # Generación de la imagen Docker a partir del archivo Dockerfile
-docker build -t arboles-costarica-listaroja-r-433 .
+docker build -t arboles-costarica-listaroja-r-441 .
 ```
 
 ### Ejecución del contenedor
@@ -13,11 +13,11 @@ docker build -t arboles-costarica-listaroja-r-433 .
 # Ejecución del contenedor Docker
 # (el directorio local debe especificarse en la opción -v)
 # (el archivo con variables de ambiente debe especificarse en la opción --env-file)
-docker run -d --name arboles-costarica-listaroja-r-433 \
+docker run -d --name arboles-costarica-listaroja-r-441 \
   -p 8787:8787 \
   -v /home/mfvargas/arboles-costarica-listaroja/github:/home/rstudio \
-  --env-file /home/mfvargas/arboles-costarica-listaroja-r-433.env \
-  arboles-costarica-listaroja-r-433
+  --env-file /home/mfvargas/arboles-costarica-listaroja-r-441.env \
+  arboles-costarica-listaroja-r-441
 ```
   
 ### Acceso al contenedor (username=rstudio, password=biodatacr)
@@ -26,16 +26,16 @@ docker run -d --name arboles-costarica-listaroja-r-433 \
 ### Detención, inicio y borrado del contenedor
 ```shell
 # Detención del contenedor Docker
-docker stop arboles-costarica-listaroja-r-433
+docker stop arboles-costarica-listaroja-r-441
 
 # Inicio del contenedor Docker
-docker start arboles-costarica-listaroja-r-433
+docker start arboles-costarica-listaroja-r-441
 
 # Borrado del contenedor Docker
-docker rm arboles-costarica-listaroja-r-433
+docker rm arboles-costarica-listaroja-r-441
 ```
 
-### Ejemplo de contenido del archivo `arboles-costarica-listaroja-r-433.env`
+### Ejemplo de contenido del archivo `arboles-costarica-listaroja-r-441.env`
 (deben asignarse valores adecuados a las variables)
 ```shell
 # Clave para ingresar a RStudio
