@@ -1,5 +1,5 @@
-# Se utiliza la imagen rocker/geospatial:4.3.3 como base
-FROM rocker/geospatial:4.3.3
+# Se utiliza la imagen rocker/geospatial:4.4.1 como base
+FROM rocker/geospatial:4.4.1
 
 # Definición de la variable de entorno PASSWORD
 ENV PASSWORD=arboles
