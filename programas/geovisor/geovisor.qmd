@@ -3,6 +3,7 @@ title: "Árboles de Costa Rica en la Lista Roja de la UICN"
 format: 
   dashboard:
     orientation: columns
+    theme: default
 server: shiny
 ---
 
@@ -35,8 +36,14 @@ library(leafem)
 
 # RUTAS DE ARCHIVOS DE ENTRADA
 
-# ASP
-ARCHIVO_GPKG_ASP <- "asp.gpkg"
+# Áreas de Conservación
+ARCHIVO_GPKG_AREAS_CONSERVACION <- "areas-conservacion.gpkg"
+
+# Áreas Silvestres Protegidas
+ARCHIVO_GPKG_ASP <- "areas-silvestres-protegidas.gpkg"
+
+# Corredores Biológicos
+ARCHIVO_GPKG_CORREDORES_BIOLOGICOS <- "corredores-biologicos.gpkg"
 
 # Registros de presencia
 ARCHIVO_GPKG_REGISTROS_PRESENCIA <- "registros-presencia.gpkg"
@@ -44,8 +51,16 @@ ARCHIVO_GPKG_REGISTROS_PRESENCIA <- "registros-presencia.gpkg"
 
 # CARGA DE DATOS
 
-# ASP
-asp <- st_read(ARCHIVO_GPKG_ASP, quiet = TRUE)
+# Áreas de Conservación
+areas_conservacion <- st_read(ARCHIVO_GPKG_AREAS_CONSERVACION, quiet = TRUE)
+
+# Áreas Silvestres Protegidas
+asp <- st_read(ARCHIVO_GPKG_ASP, quiet = TRUE) |> 
+  rename(codigo_asp = codigo)
+
+# Corredores Biológicos
+corredores_biologicos <- st_read(ARCHIVO_GPKG_CORREDORES_BIOLOGICOS, quiet = TRUE) |>
+  rename(codigo_cb = codigo)
 
 # Registros de presencia
 registros <- 
@@ -60,12 +75,25 @@ st_crs(registros) <- 4326
 # UNIONES
 
 # Registros de presencia unidos con polígonos de zonas 
-# (ASP, áreas de conservación, etc.)
+# Áreas Silvestres Protegidas
 registros_union_zonas <-
   st_join(
     x = registros,
-    y = select(asp, codigo, nombre_asp)
+    y = select(asp, codigo_asp, nombre_asp)
   )
+# Áreas de conservación
+registros_union_zonas <-
+  st_join(
+    x = registros_union_zonas,
+    y = select(areas_conservacion, codigo_ac, nombre_ac)
+  )
+# Corredores Biológicos
+registros_union_zonas <-
+  st_join(
+    x = registros_union_zonas,
+    y = select(corredores_biologicos, codigo_cb, nombre_cb)
+  )
+
 ```
 
 # {.sidebar}
@@ -73,6 +101,8 @@ registros_union_zonas <-
 ```{r}
 #| label: panel-widgets-entrada
 
+
+h4("Seleccione una categoría de la Lista Roja")
 
 # CATEGORÍAS DE CONSERVACIÓN EN LA LISTA ROJA
 
@@ -84,19 +114,30 @@ lista_categorias <- c("Todas", lista_categorias)
 # Widget de lista de selección de categorías
 selectInput(
   inputId = "categoria",
-  label = "Categoría en la Lista Roja",
+  label = "Categoría de la Lista Roja",
   choices = lista_categorias,
   selected = "Todas"
 )
 ```
 
-# Riqueza de especies
+# Lista de especies
+
+```{r}
+#| label: lista-especies
+#| title: "Lista de especies"
+
+dataTableOutput(
+	outputId =  "tabla_especies"
+)
+```
+
+# Riqueza de especies en zonas
 
 ## Column {width=50%}
 
 ```{r}
 #| label: mapa
-#| title: "Riqueza de especies"
+#| title: "Riqueza de especies en áreas de conservación (AC), áreas silvestres protegidas (ASP) y corredores biológicos (CB)"
 
 
 leafletOutput(
@@ -107,8 +148,16 @@ leafletOutput(
 ## Column {width=50%}
 
 ```{r}
+#| label: grafico_ac
+
+
+plotlyOutput(
+	outputId =  "grafico_ac"
+)
+```
+
+```{r}
 #| label: grafico_asp
-#| title: "Riqueza de especies en Áreas Silvestres Protegidas (ASP)"
 
 
 plotlyOutput(
@@ -116,14 +165,43 @@ plotlyOutput(
 )
 ```
 
-# Registros por zona y especie
+```{r}
+#| label: grafico_cb
+
+
+plotlyOutput(
+	outputId =  "grafico_cb"
+)
+```
+
+# Listas de especies en zonas
+
+## Row {.tabset}
+
+```{r}
+#| label: registros_ac
+#| title: "Especies en áreas de conservación"
+
+dataTableOutput(
+	outputId =  "tabla_ac"
+)
+```
 
 ```{r}
 #| label: registros_asp
-#| title: "Cantidad de registros por ASP y especie"
+#| title: "Especies en áreas silvestres protegidas"
 
 dataTableOutput(
 	outputId =  "tabla_asp"
+)
+```
+
+```{r}
+#| label: registros_cb
+#| title: "Especies en corredores biológicos"
+
+dataTableOutput(
+	outputId =  "tabla_cb"
 )
 ```
 
@@ -152,32 +230,81 @@ filtrar_registros <- reactive({
 output$mapa <- renderLeaflet({
   # Filtrado del conjunto de datos
   registros_filtrados <- filtrar_registros()
+  
+  
+  # RIQUEZA DE ESPECIES EN ÁREAS DE CONSERVACIÓN
+  riqueza_especies_ac <-
+    registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo_ac) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de AC y riqueza de especies
+  ac_union_riqueza <-
+    left_join(
+      x = areas_conservacion,
+      y = dplyr::select(riqueza_especies_ac, codigo_ac, riqueza_especies),
+      by = "codigo_ac"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+  
+  # Paleta de colores de riqueza de especies
+  colores_riqueza_especies_ac <- colorNumeric(
+    palette = "Reds",
+    domain = ac_union_riqueza$riqueza_especies,
+    na.color = "transparent"
+  )
+  
 
-  # Conteo de especies por ASP
+  # RIQUEZA DE ESPECIES EN ÁREAS SILVESTRES PROTEGIDAS
   riqueza_especies_asp <-
     registros_filtrados |>
     st_drop_geometry() |>
-    group_by(codigo) |>
+    group_by(codigo_asp) |>
     summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
   
   # Unión no espacial de ASP y riqueza de especies
   asp_union_riqueza <-
     left_join(
       x = asp,
-      y = dplyr::select(riqueza_especies_asp, codigo, riqueza_especies),
-      by = "codigo"
+      y = dplyr::select(riqueza_especies_asp, codigo_asp, riqueza_especies),
+      by = "codigo_asp"
     ) |>
     replace_na(list(riqueza_especies = 0))  
   
-  
   # Paleta de colores de riqueza de especies
-  colores_riqueza_especies <- colorNumeric(
-    palette = "Reds",
+  colores_riqueza_especies_asp <- colorNumeric(
+    palette = "Greens",
     domain = asp_union_riqueza$riqueza_especies,
     na.color = "transparent"
   )
   
-  # Mapa de riqueza de especies en ASP
+  
+  # RIQUEZA DE ESPECIES EN CORREDORES BIOLÓGICOS
+  riqueza_especies_cb <-
+    registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo_cb) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de CB y riqueza de especies
+  cb_union_riqueza <-
+    left_join(
+      x = corredores_biologicos,
+      y = dplyr::select(riqueza_especies_cb, codigo_cb, riqueza_especies),
+      by = "codigo_cb"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+  
+  # Paleta de colores de riqueza de especies
+  colores_riqueza_especies_cb <- colorNumeric(
+    palette = "Blues",
+    domain = cb_union_riqueza$riqueza_especies,
+    na.color = "transparent"
+  )  
+  
+  
+  # Mapa de riqueza de especies
   leaflet() |>
     setView(
       lng = -84.19451,
@@ -188,26 +315,68 @@ output$mapa <- renderLeaflet({
     addProviderTiles(provider = providers$Esri.WorldImagery, group = "ESRI World Imagery") |>
     addProviderTiles(provider = providers$CartoDB.Positron, group = "Carto Positron") |>
     addPolygons(
-      data = asp_union_riqueza,
+      data = ac_union_riqueza,
       color = "darkgreen",
-      fillColor = ~ colores_riqueza_especies(asp_union_riqueza$riqueza_especies),
+      fillColor = ~ colores_riqueza_especies_ac(ac_union_riqueza$riqueza_especies),
       fillOpacity = 0.8,
       weight = 2.0,
       stroke = TRUE,
       popup = paste(
-        paste0("<strong>ASP: </strong>", asp_union_riqueza$cat_manejo, " ", asp_union_riqueza$nombre_asp),
-        paste0("<strong>Riqueza de especies: </strong>", asp_union_riqueza$riqueza_especies),
+        paste0("<strong>Área de Conservación: </strong>", ac_union_riqueza$nombre_ac),
+        paste0("<strong>Riqueza de especies: </strong>", ac_union_riqueza$riqueza_especies),
         sep = "<br>"
       ),
-      group = "ASP"
+      group = "Riqueza de especies en AC"
     ) |>
     addLegend(
       position = "bottomleft",
-      pal = colores_riqueza_especies,
+      pal = colores_riqueza_especies_ac,
+      values = ac_union_riqueza$riqueza_especies,
+      group = "Riqueza de especies en AC",
+      title = "Riqueza de especies en AC"
+    ) |>    
+    addPolygons(
+      data = asp_union_riqueza,
+      color = "darkgreen",
+      fillColor = ~ colores_riqueza_especies_asp(asp_union_riqueza$riqueza_especies),
+      fillOpacity = 0.8,
+      weight = 2.0,
+      stroke = TRUE,
+      popup = paste(
+        paste0("<strong>Área Silvestre Protegida: </strong>", asp_union_riqueza$cat_manejo, " ", asp_union_riqueza$nombre_asp),
+        paste0("<strong>Riqueza de especies: </strong>", asp_union_riqueza$riqueza_especies),
+        sep = "<br>"
+      ),
+      group = "Riqueza de especies en ASP"
+    ) |>
+    addLegend(
+      position = "bottomleft",
+      pal = colores_riqueza_especies_asp,
       values = asp_union_riqueza$riqueza_especies,
       group = "Riqueza de especies en ASP",
       title = "Riqueza de especies en ASP"
-    ) |>  
+    ) |>
+    addPolygons(
+      data = cb_union_riqueza,
+      color = "blue",
+      fillColor = ~ colores_riqueza_especies_cb(cb_union_riqueza$riqueza_especies),
+      fillOpacity = 0.8,
+      weight = 2.0,
+      stroke = TRUE,
+      popup = paste(
+        paste0("<strong>Corredor Biológico: </strong>", cb_union_riqueza$nombre_cb),
+        paste0("<strong>Riqueza de especies: </strong>", cb_union_riqueza$riqueza_especies),
+        sep = "<br>"
+      ),
+      group = "Riqueza de especies en CB"
+    ) |>
+    addLegend(
+      position = "bottomleft",
+      pal = colores_riqueza_especies_cb,
+      values = cb_union_riqueza$riqueza_especies,
+      group = "Riqueza de especies en CB",
+      title = "Riqueza de especies en CB"
+    ) |>    
     addCircleMarkers(
       data = registros_filtrados,
       radius = 2,
@@ -216,14 +385,21 @@ output$mapa <- renderLeaflet({
       popup = paste(
         paste0("<strong>Especie: </strong>", registros_filtrados$species),
         paste0("<strong>Categoría en la Lista Roja: </strong>", registros_filtrados$category_iucn_redlist),
-        paste0("<strong>ASP: </strong>", registros_filtrados$nombre_asp),
+        paste0("<strong>Área de Conservación: </strong>", registros_filtrados$nombre_ac),
+        paste0("<strong>Área Silvestre Protegida: </strong>", registros_filtrados$nombre_asp),
+        paste0("<strong>Corredor Biológico: </strong>", registros_filtrados$nombre_cb),
         sep = "<br>"
       ),
       group = "Registros de presencia"
     ) |>
     addLayersControl(
       baseGroups = c("OpenStreetMap", "ESRI World Imagery", "Carto Positron"),
-      overlayGroups = c("Riqueza de especies en ASP", "Registros de presencia")
+      overlayGroups = c(
+        "Riqueza de especies en AC", 
+        "Riqueza de especies en ASP", 
+        "Riqueza de especies en CB",
+        "Registros de presencia"
+      )
     ) |>
     addScaleBar(
       position = "bottomright", 
@@ -232,8 +408,61 @@ output$mapa <- renderLeaflet({
     addResetMapButton() |>
     addSearchOSM() |>
     addMouseCoordinates() |>
-    addFullscreenControl()
+    addFullscreenControl() |>
+    hideGroup("Riqueza de especies en ASP") |>
+    hideGroup("Riqueza de especies en CB")
   })
+
+
+# Gráfico de cantidad de especies en AC
+output$grafico_ac <- renderPlotly({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Conteo de especies por AC
+  riqueza_especies_ac <-
+    registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo_ac) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de AC y riqueza de especies
+  ac_union_riqueza <-
+    left_join(
+      x = areas_conservacion,
+      y = dplyr::select(riqueza_especies_ac, codigo_ac, riqueza_especies),
+      by = "codigo_ac"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+
+  # Gráfico
+  grafico_ggplot2 <-
+    ac_union_riqueza |>
+    arrange(desc(riqueza_especies)) |>
+    slice((1:15)) |>
+    ggplot(aes(
+      x = reorder(nombre_ac, -riqueza_especies),
+      y = riqueza_especies,
+      text = paste(
+        paste0("Área de Conservación: ", nombre_ac),
+        paste0("Riqueza de especies: ", riqueza_especies),
+        sep = "<br>"
+      )    
+    )) +
+    geom_col(fill = "darkred") +
+    xlab("Áreas de Conservación") +
+    ylab("Riqueza de especies") +  
+    theme_classic()
+  
+  # Gráfico plotly
+  grafico_ggplot2 |>
+    ggplotly(tooltip = "text") |> 
+    layout(
+      xaxis = list(tickangle = 30)
+    ) |>
+    config(locale = "es")
+})
 
 
 # Gráfico de cantidad de especies en ASP
@@ -246,49 +475,147 @@ output$grafico_asp <- renderPlotly({
   riqueza_especies_asp <-
     registros_filtrados |>
     st_drop_geometry() |>
-    group_by(codigo) |>
+    group_by(codigo_asp) |>
     summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
   
   # Unión no espacial de ASP y riqueza de especies
   asp_union_riqueza <-
     left_join(
       x = asp,
-      y = dplyr::select(riqueza_especies_asp, codigo, riqueza_especies),
-      by = "codigo"
+      y = dplyr::select(riqueza_especies_asp, codigo_asp, riqueza_especies),
+      by = "codigo_asp"
     ) |>
     replace_na(list(riqueza_especies = 0))  
 
   # Gráfico
   grafico_ggplot2 <-
     asp_union_riqueza |>
-    distinct(codigo, nombre_asp, riqueza_especies) |>
+    distinct(nombre_asp, riqueza_especies) |>
     arrange(desc(riqueza_especies)) |>
-    slice((1:25)) |>
+    slice((1:15)) |>
     ggplot(aes(
       x = reorder(nombre_asp, -riqueza_especies),
       y = riqueza_especies,
       text = paste(
-        paste0("ASP: ", nombre_asp),
+        paste0("Área Silvestre Protegida: ", nombre_asp),
         paste0("Cantidad de especies: ", riqueza_especies),
         sep = "<br>"
       )    
     )) +
-    geom_col() +
-    xlab("ASP") +
+    geom_col(fill = "darkgreen") +
+    xlab("Áreas Silvestres Protegidas") +
     ylab("Riqueza de especies") +  
-    theme_minimal()
+    theme_classic()
   
   # Gráfico plotly
   grafico_ggplot2 |>
     ggplotly(tooltip = "text") |> 
     layout(
-      xaxis = list(tickangle = 45)
+      xaxis = list(tickangle = 30)
     ) |>
     config(locale = "es")
 })
 
 
-# Tabla de lista de especies en ASP
+# Gráfico de cantidad de especies en CB
+output$grafico_cb <- renderPlotly({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Conteo de especies por CB
+  riqueza_especies_cb <-
+    registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo_cb) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de CB y riqueza de especies
+  cb_union_riqueza <-
+    left_join(
+      x = corredores_biologicos,
+      y = dplyr::select(riqueza_especies_cb, codigo_cb, riqueza_especies),
+      by = "codigo_cb"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+
+  # Gráfico
+  grafico_ggplot2 <-
+    cb_union_riqueza |>
+    distinct(nombre_cb, riqueza_especies) |>
+    arrange(desc(riqueza_especies)) |>
+    slice((1:15)) |>
+    ggplot(aes(
+      x = reorder(nombre_cb, -riqueza_especies),
+      y = riqueza_especies,
+      text = paste(
+        paste0("Corredor Biológico: ", nombre_cb),
+        paste0("Cantidad de especies: ", riqueza_especies),
+        sep = "<br>"
+      )    
+    )) +
+    geom_col(fill = "blue") +
+    xlab("Corredores Biológicos") +
+    ylab("Riqueza de especies") +  
+    theme_classic()
+  
+  # Gráfico plotly
+  grafico_ggplot2 |>
+    ggplotly(tooltip = "text") |> 
+    layout(
+      xaxis = list(tickangle = 30)
+    ) |>
+    config(locale = "es")
+})
+
+
+# Tabla de especies
+output$tabla_especies <- renderDataTable({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Tabla interactiva
+  registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(species, category_iucn_redlist) |>
+    summarize(n = n()) |>
+    arrange(species) |>
+    datatable(
+      colnames = c("Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+      rownames = FALSE,
+      options = list(
+        pageLength = 10,
+        language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+      )
+    )
+})
+
+
+# Tabla de datos en AC
+output$tabla_ac <- renderDataTable({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Tabla interactiva
+  registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(nombre_ac, species, category_iucn_redlist) |>
+    summarize(n = n()) |>
+    arrange(nombre_ac, species) |>
+    datatable(
+      colnames = c("Área de Conservación", "Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+      rownames = FALSE,
+      options = list(
+        pageLength = 10,
+        language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+      )
+    )
+})
+
+
+# Tabla de datos en ASP
 output$tabla_asp <- renderDataTable({
   # Filtrado del conjunto de datos
   registros_filtrados <- filtrar_registros()
@@ -301,7 +628,30 @@ output$tabla_asp <- renderDataTable({
     summarize(n = n()) |>
     arrange(nombre_asp, species) |>
     datatable(
-      colnames = c("ASP", "Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+      colnames = c("Área Silvestre Protegida", "Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+      rownames = FALSE,
+      options = list(
+        pageLength = 10,
+        language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+      )
+    )
+})
+
+
+# Tabla de datos en CB
+output$tabla_cb <- renderDataTable({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Tabla interactiva
+  registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(nombre_cb, species, category_iucn_redlist) |>
+    summarize(n = n()) |>
+    arrange(nombre_cb, species) |>
+    datatable(
+      colnames = c("Corredor Biológico", "Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
       rownames = FALSE,
       options = list(
         pageLength = 10,

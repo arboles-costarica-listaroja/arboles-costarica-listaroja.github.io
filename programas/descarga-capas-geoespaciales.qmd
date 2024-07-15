@@ -81,8 +81,8 @@ capa_sf |>
 
 
 # Ruta a los archivos de salida
-ARCHIVO_GPKG_ASP_1 <- here("datos", "finales", "areas_silvestres_protegidas.gpkg")
-ARCHIVO_GPKG_ASP_2 <- here("programas", "geovisor", "areas_silvestres_protegidas.gpkg")
+ARCHIVO_GPKG_ASP_1 <- here("datos", "finales", "areas-silvestres-protegidas.gpkg")
+ARCHIVO_GPKG_ASP_2 <- here("programas", "geovisor", "areas-silvestres-protegidas.gpkg")
 
 # Direcciones WFS
 WFS_BASE <- "http://geos1pne.sirefor.go.cr/wfs"
@@ -118,8 +118,8 @@ capa_sf |>
 
 
 # Ruta a los archivos de salida
-ARCHIVO_GPKG_AC_1 <- here("datos", "finales", "areas_conservacion.gpkg")
-ARCHIVO_GPKG_AC_2 <- here("programas", "geovisor", "areas_conservacion.gpkg")
+ARCHIVO_GPKG_AC_1 <- here("datos", "finales", "areas-conservacion.gpkg")
+ARCHIVO_GPKG_AC_2 <- here("programas", "geovisor", "areas-conservacion.gpkg")
 
 # Direcciones WFS
 WFS_BASE <- "http://geos1pne.sirefor.go.cr/wfs"
@@ -154,8 +154,8 @@ capa_sf |>
 
 
 # Ruta a los archivos de salida
-ARCHIVO_GPKG_CB_1 <- here("datos", "finales", "corredores_biologicos.gpkg")
-ARCHIVO_GPKG_CB_2 <- here("programas", "geovisor", "corredores_biologicos.gpkg")
+ARCHIVO_GPKG_CB_1 <- here("datos", "finales", "corredores-biologicos.gpkg")
+ARCHIVO_GPKG_CB_2 <- here("programas", "geovisor", "corredores-biologicos.gpkg")
 
 # Direcciones WFS
 WFS_BASE <- "http://geos1pne.sirefor.go.cr/wfs"

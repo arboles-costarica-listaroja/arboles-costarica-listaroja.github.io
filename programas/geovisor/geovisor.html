@@ -63,7 +63,7 @@ ul.task-list li input[type="checkbox"] {
         
       </div>
     </div>
-<div id="dashboard-collapse" class="navbar-collapse collapse"><ul class="navbar-nav navbar-nav-scroll me-auto" role="tablist"><li class="nav-item" role="presentation"><a id="tab-riqueza-de-especies" class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#riqueza-de-especies" data-scrolling="false" href="#riqueza-de-especies" aria-controls="riqueza-de-especies" aria-selected="true"><span class="nav-link-text">Riqueza de especies</span></a></li><li class="nav-item" role="presentation"><a id="tab-registros-por-zona-y-especie" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#registros-por-zona-y-especie" data-scrolling="false" href="#registros-por-zona-y-especie" aria-controls="registros-por-zona-y-especie" aria-selected="false"><span class="nav-link-text">Registros por zona y especie</span></a></li></ul></div></div>
+<div id="dashboard-collapse" class="navbar-collapse collapse"><ul class="navbar-nav navbar-nav-scroll me-auto" role="tablist"><li class="nav-item" role="presentation"><a id="tab-lista-de-especies" class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#lista-de-especies" data-scrolling="false" href="#lista-de-especies" aria-controls="lista-de-especies" aria-selected="true"><span class="nav-link-text">Lista de especies</span></a></li><li class="nav-item" role="presentation"><a id="tab-riqueza-de-especies-en-zonas" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#riqueza-de-especies-en-zonas" data-scrolling="false" href="#riqueza-de-especies-en-zonas" aria-controls="riqueza-de-especies-en-zonas" aria-selected="false"><span class="nav-link-text">Riqueza de especies en zonas</span></a></li><li class="nav-item" role="presentation"><a id="tab-listas-de-especies-en-zonas" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#listas-de-especies-en-zonas" data-scrolling="false" href="#listas-de-especies-en-zonas" aria-controls="listas-de-especies-en-zonas" aria-selected="false"><span class="nav-link-text">Listas de especies en zonas</span></a></li></ul></div></div>
 </nav>
 </header>
 <div class="page-layout-custom quarto-dashboard-content bslib-gap-spacing html-fill-container bslib-page-fill quarto-dashboard-pages dashboard-sidebar-container">  
@@ -71,12 +71,29 @@ ul.task-list li input[type="checkbox"] {
 <div class="bslib-sidebar-layout html-fill-item html-fill-container" data-bslib-sidebar-open="desktop" data-bslib-sidebar-init="true" data-bslib-sidebar-border="false" data-bslib-sidebar-border-radius="false"><div class="main html-fill-container html-fill-item"><div class="sidebar-content html-fill-item html-fill-container">
 <div class="tab-content bslib-grid html-fill-item html-fill-container" style="display: grid; grid-template-columns: minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
-<div id="riqueza-de-especies" class="dashboard-page tab-pane show active html-fill-item html-fill-container" data-orientation="columns" aria-labelledby="tab-riqueza-de-especies">
+<div id="lista-de-especies" class="dashboard-page tab-pane show active html-fill-item html-fill-container" data-orientation="columns" aria-labelledby="tab-lista-de-especies">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Lista de especies" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title html-fill-item html-fill-container">Lista de especies</div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="datatables html-widget html-widget-output shiny-report-size html-fill-item html-fill-container" id="tabla_especies" style="width:100%;height:auto;"></div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div><div id="riqueza-de-especies-en-zonas" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="columns" aria-labelledby="tab-riqueza-de-especies-en-zonas">
 <div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 50fr) minmax(3em, 50fr);
 grid-auto-rows: minmax(0, 1fr);">
 <div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
-<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Riqueza de especies" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-header"><div class="card-title html-fill-item html-fill-container">Riqueza de especies</div></div>
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Riqueza de especies en áreas de conservación (AC), áreas silvestres protegidas (ASP) y corredores biológicos (CB)" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title html-fill-item html-fill-container">Riqueza de especies en áreas de conservación (AC), áreas silvestres protegidas (ASP) y corredores biológicos (CB)</div></div>
 <div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
 <div class="leaflet html-widget html-widget-output shiny-report-size html-fill-item html-fill-container" id="mapa" style="width:100%;height:400px;"></div>
@@ -88,9 +105,20 @@ grid-auto-rows: minmax(0, 1fr);">
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-</div><div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
-<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Riqueza de especies en Áreas Silvestres Protegidas (ASP)" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-header"><div class="card-title html-fill-item html-fill-container">Riqueza de especies en Áreas Silvestres Protegidas (ASP)</div></div>
+</div><div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme html-fill-item html-fill-container" id="grafico_ac" style="width:100%;height:400px;"></div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
 <div class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme html-fill-item html-fill-container" id="grafico_asp" style="width:100%;height:400px;"></div>
@@ -102,16 +130,10 @@ grid-auto-rows: minmax(0, 1fr);">
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-</div>
-</div>
-</div><div id="registros-por-zona-y-especie" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="columns" aria-labelledby="tab-registros-por-zona-y-especie">
-<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
-grid-auto-rows: minmax(0, 1fr);">
-<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Cantidad de registros por ASP y especie" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-header"><div class="card-title html-fill-item html-fill-container">Cantidad de registros por ASP y especie</div></div>
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
-<div class="datatables html-widget html-widget-output shiny-report-size html-fill-item html-fill-container" id="tabla_asp" style="width:100%;height:auto;"></div>
+<div class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme html-fill-item html-fill-container" id="grafico_cb" style="width:100%;height:400px;"></div>
 </div>
 </div>
 <bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
@@ -119,16 +141,50 @@ grid-auto-rows: minmax(0, 1fr);">
     <span class="bslib-full-screen-enter badge rounded-pill">
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
     </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden html-fill-item html-fill-container">
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div>
+</div><div id="listas-de-especies-en-zonas" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="columns" aria-labelledby="tab-listas-de-especies-en-zonas">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card tabset html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header dashboard-card-no-title bslib-navs-card-title">
+
+<ul class="nav nav-tabs card-header-tabs" role="tablist" data-tabsetid="card-tabset-6"><li class="nav-item" role="presentation"><a href="#card-tabset-6-1" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Especies en áreas de conservación" aria-selected="true" class="nav-link active">Especies en áreas de conservación</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-6-2" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Especies en áreas silvestres protegidas" aria-selected="false" class="nav-link">Especies en áreas silvestres protegidas</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-6-3" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Especies en corredores biológicos" aria-selected="false" class="nav-link">Especies en corredores biológicos</a></li></ul></div>
+
+
+
+<div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden html-fill-item html-fill-container">
 
 </div>
+<div class="tab-content html-fill-item html-fill-container" data-tabset-id="card-tabset-6"><div class="tab-pane active show html-fill-item html-fill-container" role="tabpanel" id="card-tabset-6-1"><div class="card-body html-fill-item html-fill-container" data-title="Especies en áreas de conservación">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="datatables html-widget html-widget-output shiny-report-size html-fill-item html-fill-container" id="tabla_ac" style="width:100%;height:auto;"></div>
+</div>
+</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-6-2"><div class="card-body html-fill-item html-fill-container" data-title="Especies en áreas silvestres protegidas">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="datatables html-widget html-widget-output shiny-report-size html-fill-item html-fill-container" id="tabla_asp" style="width:100%;height:auto;"></div>
+</div>
+</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-6-3"><div class="card-body html-fill-item html-fill-container" data-title="Especies en corredores biológicos">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="datatables html-widget html-widget-output shiny-report-size html-fill-item html-fill-container" id="tabla_cb" style="width:100%;height:auto;"></div>
+</div>
+</div></div></div><bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
 </div>
 </div>
 </div></div><aside id="bslib-sidebar-1" class="sidebar html-fill-container html-fill-item"><div class="html-fill-container html-fill-item">
+<div class="cell-output-display">
+<h4>Seleccione una categoría de la Lista Roja</h4>
+</div>
 <div class="cell-output-display no-overflow-x">
 <div class="form-group shiny-input-container">
-<label class="control-label" id="categoria-label" for="categoria">Categoría en la Lista Roja</label>
+<label class="control-label" id="categoria-label" for="categoria">Categoría de la Lista Roja</label>
 <div>
 <select id="categoria" class="shiny-input-select"><option value="Todas" selected="">Todas</option>
 <option value="Critically Endangered">Critically Endangered</option>
@@ -168,8 +224,14 @@ library(leafem)
 
 # RUTAS DE ARCHIVOS DE ENTRADA
 
-# ASP
-ARCHIVO_GPKG_ASP <- "asp.gpkg"
+# Áreas de Conservación
+ARCHIVO_GPKG_AREAS_CONSERVACION <- "areas-conservacion.gpkg"
+
+# Áreas Silvestres Protegidas
+ARCHIVO_GPKG_ASP <- "areas-silvestres-protegidas.gpkg"
+
+# Corredores Biológicos
+ARCHIVO_GPKG_CORREDORES_BIOLOGICOS <- "corredores-biologicos.gpkg"
 
 # Registros de presencia
 ARCHIVO_GPKG_REGISTROS_PRESENCIA <- "registros-presencia.gpkg"
@@ -177,8 +239,16 @@ ARCHIVO_GPKG_REGISTROS_PRESENCIA <- "registros-presencia.gpkg"
 
 # CARGA DE DATOS
 
-# ASP
-asp <- st_read(ARCHIVO_GPKG_ASP, quiet = TRUE)
+# Áreas de Conservación
+areas_conservacion <- st_read(ARCHIVO_GPKG_AREAS_CONSERVACION, quiet = TRUE)
+
+# Áreas Silvestres Protegidas
+asp <- st_read(ARCHIVO_GPKG_ASP, quiet = TRUE) |> 
+  rename(codigo_asp = codigo)
+
+# Corredores Biológicos
+corredores_biologicos <- st_read(ARCHIVO_GPKG_CORREDORES_BIOLOGICOS, quiet = TRUE) |>
+  rename(codigo_cb = codigo)
 
 # Registros de presencia
 registros <- 
@@ -193,12 +263,25 @@ st_crs(registros) <- 4326
 # UNIONES
 
 # Registros de presencia unidos con polígonos de zonas 
-# (ASP, áreas de conservación, etc.)
+# Áreas Silvestres Protegidas
 registros_union_zonas <-
   st_join(
     x = registros,
-    y = select(asp, codigo, nombre_asp)
+    y = select(asp, codigo_asp, nombre_asp)
   )
+# Áreas de conservación
+registros_union_zonas <-
+  st_join(
+    x = registros_union_zonas,
+    y = select(areas_conservacion, codigo_ac, nombre_ac)
+  )
+# Corredores Biológicos
+registros_union_zonas <-
+  st_join(
+    x = registros_union_zonas,
+    y = select(corredores_biologicos, codigo_cb, nombre_cb)
+  )
+
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -222,32 +305,81 @@ filtrar_registros <- reactive({
 output$mapa <- renderLeaflet({
   # Filtrado del conjunto de datos
   registros_filtrados <- filtrar_registros()
+  
+  
+  # RIQUEZA DE ESPECIES EN ÁREAS DE CONSERVACIÓN
+  riqueza_especies_ac <-
+    registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo_ac) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de AC y riqueza de especies
+  ac_union_riqueza <-
+    left_join(
+      x = areas_conservacion,
+      y = dplyr::select(riqueza_especies_ac, codigo_ac, riqueza_especies),
+      by = "codigo_ac"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+  
+  # Paleta de colores de riqueza de especies
+  colores_riqueza_especies_ac <- colorNumeric(
+    palette = "Reds",
+    domain = ac_union_riqueza$riqueza_especies,
+    na.color = "transparent"
+  )
+  
 
-  # Conteo de especies por ASP
+  # RIQUEZA DE ESPECIES EN ÁREAS SILVESTRES PROTEGIDAS
   riqueza_especies_asp <-
     registros_filtrados |>
     st_drop_geometry() |>
-    group_by(codigo) |>
+    group_by(codigo_asp) |>
     summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
   
   # Unión no espacial de ASP y riqueza de especies
   asp_union_riqueza <-
     left_join(
       x = asp,
-      y = dplyr::select(riqueza_especies_asp, codigo, riqueza_especies),
-      by = "codigo"
+      y = dplyr::select(riqueza_especies_asp, codigo_asp, riqueza_especies),
+      by = "codigo_asp"
     ) |>
     replace_na(list(riqueza_especies = 0))  
   
-  
   # Paleta de colores de riqueza de especies
-  colores_riqueza_especies <- colorNumeric(
-    palette = "Reds",
+  colores_riqueza_especies_asp <- colorNumeric(
+    palette = "Greens",
     domain = asp_union_riqueza$riqueza_especies,
     na.color = "transparent"
   )
   
-  # Mapa de riqueza de especies en ASP
+  
+  # RIQUEZA DE ESPECIES EN CORREDORES BIOLÓGICOS
+  riqueza_especies_cb <-
+    registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo_cb) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de CB y riqueza de especies
+  cb_union_riqueza <-
+    left_join(
+      x = corredores_biologicos,
+      y = dplyr::select(riqueza_especies_cb, codigo_cb, riqueza_especies),
+      by = "codigo_cb"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+  
+  # Paleta de colores de riqueza de especies
+  colores_riqueza_especies_cb <- colorNumeric(
+    palette = "Blues",
+    domain = cb_union_riqueza$riqueza_especies,
+    na.color = "transparent"
+  )  
+  
+  
+  # Mapa de riqueza de especies
   leaflet() |>
     setView(
       lng = -84.19451,
@@ -258,26 +390,68 @@ output$mapa <- renderLeaflet({
     addProviderTiles(provider = providers$Esri.WorldImagery, group = "ESRI World Imagery") |>
     addProviderTiles(provider = providers$CartoDB.Positron, group = "Carto Positron") |>
     addPolygons(
-      data = asp_union_riqueza,
+      data = ac_union_riqueza,
       color = "darkgreen",
-      fillColor = ~ colores_riqueza_especies(asp_union_riqueza$riqueza_especies),
+      fillColor = ~ colores_riqueza_especies_ac(ac_union_riqueza$riqueza_especies),
       fillOpacity = 0.8,
       weight = 2.0,
       stroke = TRUE,
       popup = paste(
-        paste0("<strong>ASP: <\u002fstrong>", asp_union_riqueza$cat_manejo, " ", asp_union_riqueza$nombre_asp),
-        paste0("<strong>Riqueza de especies: <\u002fstrong>", asp_union_riqueza$riqueza_especies),
+        paste0("<strong>Área de Conservación: <\u002fstrong>", ac_union_riqueza$nombre_ac),
+        paste0("<strong>Riqueza de especies: <\u002fstrong>", ac_union_riqueza$riqueza_especies),
         sep = "<br>"
       ),
-      group = "ASP"
+      group = "Riqueza de especies en AC"
     ) |>
     addLegend(
       position = "bottomleft",
-      pal = colores_riqueza_especies,
+      pal = colores_riqueza_especies_ac,
+      values = ac_union_riqueza$riqueza_especies,
+      group = "Riqueza de especies en AC",
+      title = "Riqueza de especies en AC"
+    ) |>    
+    addPolygons(
+      data = asp_union_riqueza,
+      color = "darkgreen",
+      fillColor = ~ colores_riqueza_especies_asp(asp_union_riqueza$riqueza_especies),
+      fillOpacity = 0.8,
+      weight = 2.0,
+      stroke = TRUE,
+      popup = paste(
+        paste0("<strong>Área Silvestre Protegida: <\u002fstrong>", asp_union_riqueza$cat_manejo, " ", asp_union_riqueza$nombre_asp),
+        paste0("<strong>Riqueza de especies: <\u002fstrong>", asp_union_riqueza$riqueza_especies),
+        sep = "<br>"
+      ),
+      group = "Riqueza de especies en ASP"
+    ) |>
+    addLegend(
+      position = "bottomleft",
+      pal = colores_riqueza_especies_asp,
       values = asp_union_riqueza$riqueza_especies,
       group = "Riqueza de especies en ASP",
       title = "Riqueza de especies en ASP"
-    ) |>  
+    ) |>
+    addPolygons(
+      data = cb_union_riqueza,
+      color = "blue",
+      fillColor = ~ colores_riqueza_especies_cb(cb_union_riqueza$riqueza_especies),
+      fillOpacity = 0.8,
+      weight = 2.0,
+      stroke = TRUE,
+      popup = paste(
+        paste0("<strong>Corredor Biológico: <\u002fstrong>", cb_union_riqueza$nombre_cb),
+        paste0("<strong>Riqueza de especies: <\u002fstrong>", cb_union_riqueza$riqueza_especies),
+        sep = "<br>"
+      ),
+      group = "Riqueza de especies en CB"
+    ) |>
+    addLegend(
+      position = "bottomleft",
+      pal = colores_riqueza_especies_cb,
+      values = cb_union_riqueza$riqueza_especies,
+      group = "Riqueza de especies en CB",
+      title = "Riqueza de especies en CB"
+    ) |>    
     addCircleMarkers(
       data = registros_filtrados,
       radius = 2,
@@ -286,14 +460,21 @@ output$mapa <- renderLeaflet({
       popup = paste(
         paste0("<strong>Especie: <\u002fstrong>", registros_filtrados$species),
         paste0("<strong>Categoría en la Lista Roja: <\u002fstrong>", registros_filtrados$category_iucn_redlist),
-        paste0("<strong>ASP: <\u002fstrong>", registros_filtrados$nombre_asp),
+        paste0("<strong>Área de Conservación: <\u002fstrong>", registros_filtrados$nombre_ac),
+        paste0("<strong>Área Silvestre Protegida: <\u002fstrong>", registros_filtrados$nombre_asp),
+        paste0("<strong>Corredor Biológico: <\u002fstrong>", registros_filtrados$nombre_cb),
         sep = "<br>"
       ),
       group = "Registros de presencia"
     ) |>
     addLayersControl(
       baseGroups = c("OpenStreetMap", "ESRI World Imagery", "Carto Positron"),
-      overlayGroups = c("Riqueza de especies en ASP", "Registros de presencia")
+      overlayGroups = c(
+        "Riqueza de especies en AC", 
+        "Riqueza de especies en ASP", 
+        "Riqueza de especies en CB",
+        "Registros de presencia"
+      )
     ) |>
     addScaleBar(
       position = "bottomright", 
@@ -302,8 +483,61 @@ output$mapa <- renderLeaflet({
     addResetMapButton() |>
     addSearchOSM() |>
     addMouseCoordinates() |>
-    addFullscreenControl()
+    addFullscreenControl() |>
+    hideGroup("Riqueza de especies en ASP") |>
+    hideGroup("Riqueza de especies en CB")
   })
+
+
+# Gráfico de cantidad de especies en AC
+output$grafico_ac <- renderPlotly({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Conteo de especies por AC
+  riqueza_especies_ac <-
+    registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo_ac) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de AC y riqueza de especies
+  ac_union_riqueza <-
+    left_join(
+      x = areas_conservacion,
+      y = dplyr::select(riqueza_especies_ac, codigo_ac, riqueza_especies),
+      by = "codigo_ac"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+
+  # Gráfico
+  grafico_ggplot2 <-
+    ac_union_riqueza |>
+    arrange(desc(riqueza_especies)) |>
+    slice((1:15)) |>
+    ggplot(aes(
+      x = reorder(nombre_ac, -riqueza_especies),
+      y = riqueza_especies,
+      text = paste(
+        paste0("Área de Conservación: ", nombre_ac),
+        paste0("Riqueza de especies: ", riqueza_especies),
+        sep = "<br>"
+      )    
+    )) +
+    geom_col(fill = "darkred") +
+    xlab("Áreas de Conservación") +
+    ylab("Riqueza de especies") +  
+    theme_classic()
+  
+  # Gráfico plotly
+  grafico_ggplot2 |>
+    ggplotly(tooltip = "text") |> 
+    layout(
+      xaxis = list(tickangle = 30)
+    ) |>
+    config(locale = "es")
+})
 
 
 # Gráfico de cantidad de especies en ASP
@@ -316,49 +550,147 @@ output$grafico_asp <- renderPlotly({
   riqueza_especies_asp <-
     registros_filtrados |>
     st_drop_geometry() |>
-    group_by(codigo) |>
+    group_by(codigo_asp) |>
     summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
   
   # Unión no espacial de ASP y riqueza de especies
   asp_union_riqueza <-
     left_join(
       x = asp,
-      y = dplyr::select(riqueza_especies_asp, codigo, riqueza_especies),
-      by = "codigo"
+      y = dplyr::select(riqueza_especies_asp, codigo_asp, riqueza_especies),
+      by = "codigo_asp"
     ) |>
     replace_na(list(riqueza_especies = 0))  
 
   # Gráfico
   grafico_ggplot2 <-
     asp_union_riqueza |>
-    distinct(codigo, nombre_asp, riqueza_especies) |>
+    distinct(nombre_asp, riqueza_especies) |>
     arrange(desc(riqueza_especies)) |>
-    slice((1:25)) |>
+    slice((1:15)) |>
     ggplot(aes(
       x = reorder(nombre_asp, -riqueza_especies),
       y = riqueza_especies,
       text = paste(
-        paste0("ASP: ", nombre_asp),
+        paste0("Área Silvestre Protegida: ", nombre_asp),
         paste0("Cantidad de especies: ", riqueza_especies),
         sep = "<br>"
       )    
     )) +
-    geom_col() +
-    xlab("ASP") +
+    geom_col(fill = "darkgreen") +
+    xlab("Áreas Silvestres Protegidas") +
     ylab("Riqueza de especies") +  
-    theme_minimal()
+    theme_classic()
   
   # Gráfico plotly
   grafico_ggplot2 |>
     ggplotly(tooltip = "text") |> 
     layout(
-      xaxis = list(tickangle = 45)
+      xaxis = list(tickangle = 30)
     ) |>
     config(locale = "es")
 })
 
 
-# Tabla de lista de especies en ASP
+# Gráfico de cantidad de especies en CB
+output$grafico_cb <- renderPlotly({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Conteo de especies por CB
+  riqueza_especies_cb <-
+    registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(codigo_cb) |>
+    summarize(riqueza_especies = n_distinct(species, na.rm = TRUE))
+  
+  # Unión no espacial de CB y riqueza de especies
+  cb_union_riqueza <-
+    left_join(
+      x = corredores_biologicos,
+      y = dplyr::select(riqueza_especies_cb, codigo_cb, riqueza_especies),
+      by = "codigo_cb"
+    ) |>
+    replace_na(list(riqueza_especies = 0))  
+
+  # Gráfico
+  grafico_ggplot2 <-
+    cb_union_riqueza |>
+    distinct(nombre_cb, riqueza_especies) |>
+    arrange(desc(riqueza_especies)) |>
+    slice((1:15)) |>
+    ggplot(aes(
+      x = reorder(nombre_cb, -riqueza_especies),
+      y = riqueza_especies,
+      text = paste(
+        paste0("Corredor Biológico: ", nombre_cb),
+        paste0("Cantidad de especies: ", riqueza_especies),
+        sep = "<br>"
+      )    
+    )) +
+    geom_col(fill = "blue") +
+    xlab("Corredores Biológicos") +
+    ylab("Riqueza de especies") +  
+    theme_classic()
+  
+  # Gráfico plotly
+  grafico_ggplot2 |>
+    ggplotly(tooltip = "text") |> 
+    layout(
+      xaxis = list(tickangle = 30)
+    ) |>
+    config(locale = "es")
+})
+
+
+# Tabla de especies
+output$tabla_especies <- renderDataTable({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Tabla interactiva
+  registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(species, category_iucn_redlist) |>
+    summarize(n = n()) |>
+    arrange(species) |>
+    datatable(
+      colnames = c("Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+      rownames = FALSE,
+      options = list(
+        pageLength = 10,
+        language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+      )
+    )
+})
+
+
+# Tabla de datos en AC
+output$tabla_ac <- renderDataTable({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Tabla interactiva
+  registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(nombre_ac, species, category_iucn_redlist) |>
+    summarize(n = n()) |>
+    arrange(nombre_ac, species) |>
+    datatable(
+      colnames = c("Área de Conservación", "Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+      rownames = FALSE,
+      options = list(
+        pageLength = 10,
+        language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+      )
+    )
+})
+
+
+# Tabla de datos en ASP
 output$tabla_asp <- renderDataTable({
   # Filtrado del conjunto de datos
   registros_filtrados <- filtrar_registros()
@@ -371,7 +703,30 @@ output$tabla_asp <- renderDataTable({
     summarize(n = n()) |>
     arrange(nombre_asp, species) |>
     datatable(
-      colnames = c("ASP", "Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+      colnames = c("Área Silvestre Protegida", "Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
+      rownames = FALSE,
+      options = list(
+        pageLength = 10,
+        language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+      )
+    )
+})
+
+
+# Tabla de datos en CB
+output$tabla_cb <- renderDataTable({
+  # Filtrado del conjunto de datos
+  registros_filtrados <- filtrar_registros()
+
+  
+  # Tabla interactiva
+  registros_filtrados |>
+    st_drop_geometry() |>
+    group_by(nombre_cb, species, category_iucn_redlist) |>
+    summarize(n = n()) |>
+    arrange(nombre_cb, species) |>
+    datatable(
+      colnames = c("Corredor Biológico", "Especie", "Categoría en la Lista Roja", "Cantidad de registros"),
       rownames = FALSE,
       options = list(
         pageLength = 10,
@@ -410,7 +765,7 @@ ojs_define <- function(..., .session = shiny::getDefaultReactiveDomain()) {
 </p>
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
-{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["selectize"]},{"type":"character","attributes":{},"value":["0.15.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/selectize"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/selectize.min.js","accessibility/js/selectize-plugin-a11y.min.js"]},{"type":"character","attributes":{},"value":["css/selectize.bootstrap3.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.8.1.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.1.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["leaflet"]},{"type":"character","attributes":{},"value":["1.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/leaflet"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet.js"]},{"type":"character","attributes":{},"value":["leaflet.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["leafletfix"]},{"type":"character","attributes":{},"value":["1.0.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/leafletfix"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leafletfix.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["proj4"]},{"type":"character","attributes":{},"value":["2.6.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/plugins/Proj4Leaflet"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["proj4.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["Proj4Leaflet"]},{"type":"character","attributes":{},"value":["1.0.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/plugins/Proj4Leaflet"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["proj4leaflet.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["rstudio_leaflet"]},{"type":"character","attributes":{},"value":["1.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/rstudio_leaflet"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rstudio_leaflet.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["leaflet-binding"]},{"type":"character","attributes":{},"value":["2.2.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/assets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.10.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.10.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-css"]},{"type":"character","attributes":{},"value":["0.0.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/css"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables-crosstalk.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-binding"]},{"type":"character","attributes":{},"value":["0.33"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.5.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"character","attributes":{},"value":["1.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/crosstalk.min.js"]},{"type":"character","attributes":{},"value":["css/crosstalk.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]}]}
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["selectize"]},{"type":"character","attributes":{},"value":["0.15.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/selectize"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/selectize.min.js","accessibility/js/selectize-plugin-a11y.min.js"]},{"type":"character","attributes":{},"value":["css/selectize.bootstrap3.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.8.1.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-css"]},{"type":"character","attributes":{},"value":["0.0.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/css"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables-crosstalk.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-binding"]},{"type":"character","attributes":{},"value":["0.33"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.5.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"character","attributes":{},"value":["1.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/crosstalk.min.js"]},{"type":"character","attributes":{},"value":["css/crosstalk.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.1.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["leaflet"]},{"type":"character","attributes":{},"value":["1.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/leaflet"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet.js"]},{"type":"character","attributes":{},"value":["leaflet.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["leafletfix"]},{"type":"character","attributes":{},"value":["1.0.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/leafletfix"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leafletfix.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["proj4"]},{"type":"character","attributes":{},"value":["2.6.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/plugins/Proj4Leaflet"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["proj4.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["Proj4Leaflet"]},{"type":"character","attributes":{},"value":["1.0.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/plugins/Proj4Leaflet"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["proj4leaflet.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["rstudio_leaflet"]},{"type":"character","attributes":{},"value":["1.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/rstudio_leaflet"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rstudio_leaflet.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["leaflet-binding"]},{"type":"character","attributes":{},"value":["2.2.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/assets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["leaflet"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["2.2.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.10.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.10.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.10.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.10.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.10.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.10.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-css"]},{"type":"character","attributes":{},"value":["0.0.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/css"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables-crosstalk.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-binding"]},{"type":"character","attributes":{},"value":["0.33"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.5.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"character","attributes":{},"value":["1.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/crosstalk.min.js"]},{"type":"character","attributes":{},"value":["css/crosstalk.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-css"]},{"type":"character","attributes":{},"value":["0.0.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/css"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables-crosstalk.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-binding"]},{"type":"character","attributes":{},"value":["0.33"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.5.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"character","attributes":{},"value":["1.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/crosstalk.min.js"]},{"type":"character","attributes":{},"value":["css/crosstalk.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-css"]},{"type":"character","attributes":{},"value":["0.0.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/css"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables-crosstalk.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["datatables-binding"]},{"type":"character","attributes":{},"value":["0.33"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["datatables.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["DT"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.33"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.5.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"character","attributes":{},"value":["1.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/crosstalk.min.js"]},{"type":"character","attributes":{},"value":["css/crosstalk.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["crosstalk"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.2.1"]}]}]}
 </script>
 <!--/html_preserve-->
 <!--html_preserve-->
