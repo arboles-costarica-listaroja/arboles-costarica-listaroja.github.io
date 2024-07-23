@@ -16,6 +16,9 @@ RUN R -e "devtools::install_version('plotly', version = '4.10.4', repos = 'http:
 # Instalación del paquete leaflet.extras de R, versión 2.0.0
 RUN R -e "devtools::install_version('leaflet.extras', version = '2.0.0', repos = 'http://cran.us.r-project.org')"
 
+# Instalación del paquete geodata de R, versión 0.6-2
+RUN R -e "devtools::install_version('geodata', version = '0.6-2', repos = 'http://cran.us.r-project.org')"
+
 # Limpieza del cache de apt, para reducir el tamaño de la imagen
 RUN apt clean && \
     rm -rf /var/lib/apt/lists/*
